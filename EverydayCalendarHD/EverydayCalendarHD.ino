@@ -20,6 +20,7 @@ void setup() {
   cal_lights.begin();
 
   // Perform startup animation
+  //honeyDrip();
   hohmanDesign();
 
   // Fade out
@@ -134,21 +135,20 @@ void hohmanDesign(){
     {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}, //July
     {0,2,0,0,5,0,7,8,9,10,0,12,0,0,15,0,17,0,0,20,0,22,0,0,25,0,27,0,0,30,0},
     {0,2,0,0,5,0,7,0,0,10,0,12,0,0,15,0,17,0,0,20,0,22,0,0,25,0,27,0,0,30,0},
-    {0,2,3,4,5,0,7,0,0,10,0,12,13,14,15,0,17,0,20,0,22,23,24,25,0,27,0,29,30,0},
+    {0,2,3,4,5,0,7,0,0,10,0,12,13,14,15,0,17,0,0,20,0,22,23,24,25,0,27,0,29,30,0},
     {0,2,0,0,5,0,7,0,0,10,0,12,0,0,15,0,17,18,19,20,0,22,0,0,25,0,27,28,0,30,0},
     {0,2,0,0,5,0,7,8,9,10,0,12,0,0,15,0,17,0,0,20,0,22,23,24,25,0,27,0,0,30,0}
-   }
+   };
   
   // Turn on rows of LEDs, sequentially leaving on a Hohman Design LOGO above after a scan line
-  for(int day = 0; day < 31; day++){
+  for(int day = 0; day <= 31; day++){
     for(int month = 0; month < 12; month++) {
       if (day >= 1){ // Skip first day (scan line)
-        logoPixel = hohmanArray[month][day-1]; // previous day
-        if (logoPixel == 0) {
+        if (hohmanArray[month][day-1] == 0) {
             cal_lights.setLED(month, day-1, false); // turn off non-logo pixels
           }
         }
-      if (day == monthDayTotal[month]) {
+      if (day >= monthDayTotal[month]) {
           continue; // Skip Month (no more days)
         }
       cal_lights.setLED(month, day, true); // Set row to ON (scan line)
@@ -157,7 +157,7 @@ void hohmanDesign(){
     interval_ms = interval_ms + 2;
   }
   
-  delay(5000); // 5 Second Display of Logo
+  delay(10000); // 10 Second Display of Logo
 }
 
 void clearAnimation(){
